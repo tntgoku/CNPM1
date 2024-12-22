@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    
+    <link rel="stylesheet" th:href="@{/assets/css/script.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/slideshow.css}">
+    
+    <title>Chi tiet san pham</title>
+</head>
+<body>
+    <header th:replace="/header.html :: header"></header>
+
+    <!-- Main--------------------------- -->
+    <div class="w-container">
+
+
+        <div class="container">
+
+
+            <div class="product-detail">
+                <div class="box-header">
+                    <h1 th:text="${product.nameP}"></h1>
+                </div>
+
+                <div class="box-infor">
+
+                     <!-- -----------******* LEFT ******* -->
+                    <div class="deltail-infor-left">
+                        <div class="box-gallery mb-2">
+                            <div class="love-this-button">
+                                    <a title="Thêm vào sản phẩm yêu thích" href="javascript:wishProduct(5613, false)">
+                                        <i class="icon-HeartSolidOff"></i>
+                                        <i class="icon-HeartSolidOn"></i>
+                                    </a>
+                            </div>
+                       <!-- Slide Show-->
+                            <div class="slideshow-container">
+                                    <!-- Full-width images with number and caption text -->
+                                    <div class="mySlides">
+                                    <div class="numbertext">1 / 3</div>
+                                    <img th:src="@{${product.img}}" width="300" >
+                                    <div class="text">Caption Text</div>
+                                    </div>
+                                
+                                    <div class="mySlides">
+                                    <div class="numbertext">2 / 3</div>
+                                    <img th:src="@{/assets/img/app1.webp}"width="300" >
+                                    <div class="text">Caption Two</div>
+                                    </div>
+                                
+                                    <div class="mySlides">
+                                    <div class="numbertext">3 / 3</div>
+                                    <img th:src="@{/assets/img/logo_p.jpg}"  width="300">
+                                    <div class="text">Caption Three</div>
+                                    </div>
+                                
+                                    <!-- Next and previous buttons -->
+                                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                            </div>
+                      <br>
+                            <!-- The dots/circles -->
+                            <div style="text-align:center">
+                                <span class="dot" onclick="currentSlide(1)"></span>
+                                <span class="dot" onclick="currentSlide(2)"></span>
+                                <span class="dot" onclick="currentSlide(3)"></span>
+                            </div>
+                         <div class="box-contenta">
+                            <div class="banner-content">
+                                <div class="icon-document">
+                                    <i class="fa-light fa-audio-description"></i>
+                                </div>
+                                <div class="description"><span>Thông tin sản phẩm</span></div>
+                            </div>
+                            <div class="content-description" th:text="@{product.Desp}">
+                 
+                            </div>
+                         </div>   
+                    </div>
+
+                    </div>
+
+                    <!-- -----------******* RIGHT ******* -->
+                    <div class="deltail-infor-right">
+                        <div class="position-relative  flex-wrap-reverse">
+                            <!-- Price Price -->
+                            <div class="box-price">
+                                <strong class="price"  th:text="(${product.Amount}* (${product.Damount}/100) )+₫">
+                                </strong>
+                                    <span class="LastPrice" th:text="${product.Amount}+₫"> ₫</span>
+                                
+                            </div>
+                            <div style=" position: absolute; right: 0; top: 0;font-size: 12px">
+                                <label>SKU:</label> <strong style="color:black;font-size: 13px;" id="dfSKU">MYWX3VN</strong>
+                            </div>
+                        
+                        </div>
+                        <!-- Optionsssssssss -->
+                        <div class="box-product-option version">
+                            <strong class="label">
+                                Lựa chọn phiên bản
+                            </strong>
+                            
+                            <div class="list-option" id="option-version" data-id="5">
+                                <div data-sku="MYWY3VN" class="item-option btn-active selected">
+                                    <a href="/dien-thoai/iphone-16-pro-max"><span>256GB</span></a>
+                                </div>
+                                <div data-sku="MYX03VN" class="item-option btn-active ">
+                                    <a href="/dien-thoai/iphone-16-pro-max-512gb"><span>512GB</span></a>
+                                </div>
+                                <div data-sku="MYX43VN" class="item-option btn-active ">
+                                    <a href="/dien-thoai/iphone-16-pro-max-1tb"><span>1TB</span></a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Option-Color------------------- -->
+                        <div class="box-product-option color">
+                            <strong class="label">
+                                Lựa chọn màu
+                            </strong>
+                            <div class="list-option" id="option-color">
+                                    <div data-name="Titan Tự Nhiên" data-hotsale="" data-pricenote="" data-buyonline="true" data-bestprice="32,990,000 ₫" data-lastprice="33,690,000 ₫" data-idx="0" data-hex="#bab4a9" data-title="" data-id="394" data-sku="MYWY3VN" class="item-option btn-active selected">
+                                        <img src="https://cdn.hoanghamobile.com/i/productlist/dst/Uploads/2024/12/02/iphone-16-pro-max-tu-nhien-1.png;trim.threshold=80;trim.percentpadding=0.5;mode=pad;paddingWidth=0;" title="iPhone 16 Pro Max - Chính hãng VN/A" alt="Titan Tự Nhiên">
+                                        <div class="color-price">
+                                            <span>Titan Tự Nhiên</span>
+                                            <p>32,990,000 ₫ </p>
+                                        </div>
+                                    </div>
+                                    <div data-name="Titan Sa Mạc" data-hotsale="" data-pricenote="" data-buyonline="true" data-bestprice="32,990,000 ₫" data-lastprice="33,690,000 ₫" data-idx="10" data-hex="#977e6b" data-title="" data-id="515" data-sku="MYWX3VN" class="item-option btn-active">
+                                        <img src="https://cdn.hoanghamobile.com/i/productlist/dst/Uploads/2024/12/02/iphone-16-pro-max-sa-mac-1.png;trim.threshold=80;trim.percentpadding=0.5;mode=pad;paddingWidth=0;" title="iPhone 16 Pro Max - Chính hãng VN/A" alt="Titan Sa Mạc">
+                                        <div class="color-price">
+                                            <span>Titan Sa Mạc</span>
+                                            <p>32,990,000 ₫ </p>
+                                        </div>
+                                    </div>
+                                    <div data-name="Titan Đen" data-hotsale="" data-pricenote="" data-buyonline="true" data-bestprice="32,990,000 ₫" data-lastprice="33,690,000 ₫" data-idx="20" data-hex="#3f4042" data-title="" data-id="397" data-sku="MYWV3VN" class="item-option btn-active">
+                                        <img src="https://cdn.hoanghamobile.com/i/productlist/dst/Uploads/2024/12/02/iphone-16-pro-max-den-1.png;trim.threshold=80;trim.percentpadding=0.5;mode=pad;paddingWidth=0;" title="iPhone 16 Pro Max - Chính hãng VN/A" alt="Titan Đen">
+                                        <div class="color-price">
+                                            <span>Titan Đen</span>
+
+                                            <p>32,990,000 ₫ </p>
+                                        </div>
+                                    </div>
+                                    <div data-name="Titan Trắng" data-hotsale="" data-pricenote="" data-buyonline="true" data-bestprice="32,990,000 ₫" data-lastprice="33,690,000 ₫" data-idx="30" data-hex="#f2f1eb" data-title="" data-id="396" data-sku="MYWW3VN" class="item-option btn-active ">
+                                        <img src="https://cdn.hoanghamobile.com/i/productlist/dst/Uploads/2024/12/02/iphone-16-pro-max-trang-1.png;trim.threshold=80;trim.percentpadding=0.5;mode=pad;paddingWidth=0;" title="iPhone 16 Pro Max - Chính hãng VN/A" alt="Titan Trắng">
+                                        <div class="color-price">
+                                            <span>Titan Trắng</span>
+                                            <p>32,990,000 ₫ </p>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                        <!-- SELLL -->
+                        <div class="btn-event">
+
+
+                            <a target="_blank" title="Thu cũ, đổi mới lên đời iPhone 16 Pro Max - Chính hãng VN/A" href="/thu-cu-doi-moi?id=5613" class="renew item">
+                                
+                                <div class="sub-title">Thu cũ trợ giá tới <strong data-val="5000000" class="renewPrice">5,000,000 ₫</strong></div>
+                                <div class="renewValue bestPrice">27,990,000 ₫</div>
+                                <span class="item-more">Lên đời ngay &gt;&gt;</span>                                   
+                            </a>
+                        </div>
+
+
+                        <!-- *-*-*-*-*-*-*-*-*- BUYYYYY *******----------- -->
+                        <div class="box-order product-action">
+
+                            <div class="box-order-btn">
+                                <a title="Mua ngay" data-sku="MYWY3VN" href="" class="add-buy order-btn btnQuickOrder">
+                                    <strong>MUA NGAY</strong><span> (Giao tận nhà hoặc nhận tại cửa hàng)</span></a>
+                                <!-- <a title="Thêm vào giỏ hàng" data-sku="product" th:href="@{addToCart}" class="add-buy add-cart">
+                                    <i class="icon-Cart1SolidOn"></i>
+                                    <label>Thêm giỏ hàng</label>
+                                </a> -->
+                                <!-- Ví dụ về nút thêm vào giỏ hàng -->
+                                <!-- Nút Thêm vào giỏ hàng -->
+<form action="addToCart" method="post">
+    <input type="hidden" name="productId" th:value="${product.IDP}"> <!-- Sử dụng product.IDP -->
+    <input type="hidden" name="quantity" value="1"> <!-- Số lượng sản phẩm mặc định là 1 -->
+    <button type="submit" class="add-to-cart-btn">
+        Thêm vào giỏ
+    </button>
+</form>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                
+                </div>
+            </div>
+    
+                <div class="product-detail">
+                    <h1 th:text="${product.nameP}">Tên sản phẩm</h1>
+            
+                    <!-- Hình ảnh sản phẩm -->
+                    <img th:src="@{${product.img}}" alt="Hình ảnh sản phẩm" width="300">
+            
+                    <!-- Giá sản phẩm -->
+                    <p><strong>Giá:</strong> <span th:text="${product.Amount}"></span> VNĐ</p>
+            
+                    <!-- Mô tả sản phẩm -->
+                    <p><strong>Mô tả:</strong> <span th:text="${product.Desp}"></span></p>
+                </div>
+        </div>
+    </div>
+
+    <footer th:insert="~{/footer.html :: footer}"></footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script th:src="@{/js/script.js}"></script>
+    
+    <!-- <script th:src="@{/js/addToCart.js}"></script> -->
+  
+</body>
+</html>

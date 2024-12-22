@@ -1,0 +1,70 @@
+<header class="headerr" th:fragment="header">
+    <div class="container">
+    <div class="header-main">
+        <div class="header-logo" >
+          <a th:href="@{/trangchu}" class="logo">
+            <img th:src="@{/assets/img/logo_p.jpg}" alt="" width="50" height="58" >
+          </a>
+        </div>
+
+        <div class="search-i">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-primary">Search</button>
+        </div>
+
+        <div class="header-action">
+          <div class="cart">
+            <a href=""><i class="fa-solid fa-cart-shopping"></i>
+              <span class="count_item_pr hidden-count" th:text="(${TotalCartItem}!=null)? ${TotalCartItem} : 0">0</span>
+              <div class="top-cart-content">
+
+                <div class="CartHeaderContainer" style="width: 340px;">
+                  <div class="cart--empty--message" style="text-align: center;">
+                    <img th:src="@{/assets/img/bag.png}" alt="" width="80px">
+                      <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+                  </div>  
+                </div>
+              </div>
+            </a>
+          
+          
+          </div>
+          <div class="user">
+            <div th:if="${customer != null}">
+                <a th:href="@{/trangcanhan}">
+                    <i class="fa-regular fa-user" style="font-size: 23px;"></i>
+                    <span th:text="${customer.name}"></span>
+                </a>
+                <a th:href="@{/logout}">Logout</a>
+            </div>
+            <div th:unless="${customer != null}">
+                <a th:href="@{/dangnhap}">
+                    <i class="fa-regular fa-user" style="font-size: 23px;"></i>
+                    <span>Tài khoản</span>
+                </a>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-bottom">
+      <div class="container">
+        <nav class="navbar">
+          <ul class="navbar-list">
+            <li><a class= "nav-link actives" href="#" >Trang chủ</a></li>
+            <li><a class= "nav-link" href="#1 " >Sản phẩm</a></li>
+            <li><a class= "nav-link" href="#2 " >Hàng cũ</a></li>
+            <li><a class= "nav-link" href="#3 " >Khuyễn mãi</a></li>
+            <li><a class= "nav-link" href="#4 " >Chi tiết</a></li>
+          </ul>
+        </nav>
+        <a href="tel:+123456789" class="phone">
+          <i class="fa-solid fa-headphones" style="font-size: 18px;"></i>
+          <span class="span">+88 01932-131373</span>
+        </a>
+      </div>
+
+    </div>
+
+  </header>

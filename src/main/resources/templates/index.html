@@ -89,24 +89,5 @@
   </div>
   <footer th:replace="/footer.html :: footer" ></footer>
 
-  <h1>Admin Page</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Password</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Lặp qua danh sách tài khoản và hiển thị -->
-            <tr th:each="account : ${accounts}">
-                <td th:text="${account['IDA']}"></td>
-                <td th:text="${account['username']}"></td>
-                <td th:text="${account['password']}"></td>
-            </tr>
-
-        </tbody>
-    </table>
 </body>
 </html>

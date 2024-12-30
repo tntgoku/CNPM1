@@ -6,16 +6,23 @@ public class Customer {
     private String Date;
     private  int Gender;
     private String Address;
-
+    private String Phone;
     public Customer(){
 
     }
-    public Customer(String iD, String name, String date, int gender, String address) {
+    public Customer(String iD, String name, String date, int gender, String address,String phone) {
         ID = iD;
         Name = name;
         Date = date;
         Gender = gender;
         Address = address;
+        Phone=phone;
+    }
+    public String getPhone() {
+        return Phone;
+    }
+    public void setPhone(String phone) {
+        Phone = phone;
     }
     public String getID() {
         return ID;

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Thanh Toán</title>
+    <title>Trang Thanh Toán Mem</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -31,16 +31,17 @@
                 <img th:src="@{/assets/img/app1.webp}" alt="Hình Ảnh Sản Phẩm" width="100" height="100">
             </div>
             <div class="product-details">
-                <h3>iPhone 13 128GB | Chính hãng</h3>
+                <h3 th:text="${product.getNameP}">iPhone 13 128GB | Chính hãng</h3>
                 <div class="price-qt">
-                    <p class="pricess">Giá:11.590.000₫</p>
+                    <p class="pricess" th:text="${price}+'₫'">Giá:11.590.000₫</p>
                     <p>Số lượng: 1</p>
 
                 </div>
             </div>
         </div>
         <div class="total">
-            <h3>Tổng: 11.620.000₫</h3>
+            <h3 th:text=" 'Tổng: '+${price}  + ' ₫'">Tổng: 11.620.000₫</h3>
+
         </div>
     </div>
             </div>
@@ -49,7 +50,7 @@
         <div class="checkout-forms" style="display: flex;
         justify-content: center;
         align-items: center;">
-            <form class="checkout-form mt-5" action="" method="POST">
+            <form class="checkout-form mt-5" action="/camonbandamuahang" method="POST">
                 <div class="title-infor">
                     <h2 >Thông Tin Thanh Toán</h2>
     
@@ -58,23 +59,34 @@
                     <div class="form-group">
                         <div class="infor-user">
     
-                            <div class="customer-name">
-                                <p>Trung Hiếu</p>
+                            <div class="customer-name" th:if="${customer != null}">
+                                <input type="text" name="name" id="name-user" th:value="${customer.Name}" readonly required>
+
+                                <input type="text" name="phone" id="phone-user" th:value="${customer.Phone}" readonly required>
                             </div>
-                            <p class="customer-phone">0987654321</p>
+                            <div class="customer-name" th:unless="${customer != null}">
+                                    <label for="">Họ và Tên</label>
+                                    <input type="text" name="name" id="name-user" required>
+                                    <label for="">Số điện thoại</label>
+                                    <input type="text" name="phone" id="phone-user" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" th:if="${Emails  != null}">
                         <label for="email">Email</label>
-                        <input type="text" id="address" name="address" class="form-control" th:value="${Emails}" required>
+                        <input type="text" id="address" name="address"  th:value="${Emails}" class="form-control" required>
+                    </div>
+                    <div class="form-group" th:unless="${Emails  != null}">
+                        <label for="email">Email</label>
+                        <input type="text" id="address" name="address"  th:value="${Emails}" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="address">Địa Chỉ</label>
-                        <input type="text" id="address" name="address" class="form-control" th:value="${customer.Address}" required>
+                        <input type="text" id="address" name="address" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <select class="form-select" aria-label="Default select example">
-                            <option selected>Phương thức thanh toán</option>
+                        <select class="form-select" name="paymentMethod" aria-label="Default select example">
+                            <option  selected value="0">Phương thức thanh toán</option>
                             <option value="1">Thanh toán khi nhận hàng</option>
                             <option value="2">Thanh toán Momo</option>
                           </select>
@@ -83,11 +95,9 @@
                         <label for="note">Ghi chú</label>
                         <input type="text" id="note" name="note" class="form-control">
                     </div>
-                   <div class="block-payment__checkvat" style="margin-bottom: 10px;
-        width: 100%;">
+                   <div class="block-payment__checkvat" style="margin-bottom: 10px;width: 100%;">
                     <div class="checkvat__checkbox" style="align-items: flex-start;
-                    display: flex
-                ;
+                    display: flex;
                     gap: 8px;
                     width: 100%;">
                         <input type="checkbox" name="VAT" id="VAT" style="flex-shrink: 0;

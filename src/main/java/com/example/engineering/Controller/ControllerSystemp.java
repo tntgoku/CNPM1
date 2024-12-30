@@ -1,6 +1,7 @@
 package com.example.engineering.Controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,11 +142,16 @@ public class ControllerSystemp {
                         accountlist.UpdateTimer(account);
                     System.out.print("Login Success\n\n\n\n\n");
                     // save infor customer in session
-
+                    session.setAttribute("Emails", account.getEmail());
                     session.setAttribute("customer", customer);
                     session.setAttribute("IDCustomers", customer.getID());
                         System.out.println("\n\n\n\n\n "+session.getAttribute("customer").toString());
-                    return "redirect:/trangchu";
+                        if(account.getRole()==1){
+                            return "admin/dashboar";
+                        }else{
+                            return "redirect:/trangchu";
+
+                        }
                 } else {
                     System.out.print("Login Failer3\n\n\n\n\n");
                     // session.setAttribute("error", "Tai khoan hoac mat khau ko chinh xac");
@@ -170,24 +176,39 @@ public class ControllerSystemp {
                             @RequestParam("password1") String pwd1,
                             RedirectAttributes redirectAttributes) {
     
+        // Kiểm tra mật khẩu có khớp không
         if (!pwd.equals(pwd1)) {
             redirectAttributes.addFlashAttribute("errors-pwds", "Mật khẩu không khớp, vui lòng nhập lại!");
-            return "redirect:/login/login";
+            return "redirect:/login/login"; // Quay lại trang đăng nhập
         }
     
+        // Kiểm tra xem email đã tồn tại chưa
         for (Account ac : ListAccount) {
             if (ac.getEmail().equals(email)) {
-                redirectAttributes.addFlashAttribute("errors-pwds", "Email này đã tồn tại, Vui lòng nhập Email khác!");
-                return "redirect:/login/login";
+                redirectAttributes.addFlashAttribute("errors-email", "Email này đã tồn tại, vui lòng nhập email khác!");
+                return "redirect:/login/login"; // Quay lại trang đăng nhập
             }
         }
     
-        // Thêm tài khoản mới
-        String idnew = ListAccount.get(ListAccount.size() - 1).getIDA();
-        userNEWId(idnew); // Giả sử userNEWId() xử lý thêm user
-    
+        // Tạo ID mới cho người dùng
+        String newIdC = userNEWId("C", ListAccount.get(ListAccount.size()-1).getIDuser()); // Hàm tạo ID mới cho người dùng
+        String newIdA = userNEWId("A", ListAccount.get(ListAccount.size()-1).getIDuser()); // Hàm tạo ID mới cho người dùng
+        if(accountlist.checkIDA(newIdA)==false){
+            newIdA=userNEWId("A", newIdA);
+            newIdC =userNEWId("C", newIdC);
+            Account newAccount = new Account(newIdA,newIdC, name, pwd,email,2,LocalDateTime.now().toString());
+            ListAccount.add(newAccount); // Thêm tài khoản vào danh sách
+            accountlist.insetAccount(newIdA, newIdC, name, pwd1, email);
+        }else{
+
+        // Tạo tài khoản mới
+        Account newAccount = new Account(newIdA,newIdC, name, pwd,email,2,LocalDateTime.now().toString());
+        ListAccount.add(newAccount); // Thêm tài khoản vào danh sách
+        accountlist.insetAccount(newIdA, newIdC, name, pwd1, email);
+        // Thêm thông báo thành công
         redirectAttributes.addFlashAttribute("success", "Đăng ký thành công! Vui lòng đăng nhập.");
-        return "redirect:/login/login";
+        }
+        return "redirect:/login/login"; // Chuyển hướng về trang đăng nhập
     }
     
 
@@ -245,7 +266,7 @@ public class ControllerSystemp {
             System.out.println("\n\n\n\n\n\n "+sCustomer.toString());
             String idCart=cartService.findCartUser(session.getAttribute("IDCustomers").toString());
             if(idCart.isEmpty()){
-                
+
             }
             List<HashMap<String,Object>> listcarts=cartService.getProductCart(idCart);
             for (HashMap<String,Object> hashMap : listcarts) {
@@ -320,17 +341,42 @@ public class ControllerSystemp {
     }
 
 
-    @GetMapping("thanhtoan")
-    public String getPaymentPage() {
-        return "payment.html";
+    @RequestMapping("thanhtoan")
+    public String getPaymentPage(HttpSession session,
+                                @RequestParam("masanpham") String idpro,
+                                @RequestParam("price") String price,
+                                Model model){
+                                    
+        // Customer sa= (Customer)session.getAttribute("customer");
+                Product product = productReponse.getProductById(idpro);
+                
+                if (product == null) {
+            return "error"; 
+        }
+        int quantity=1;
+        double priceValue = Double.parseDouble(price);
+        double totalPrice = priceValue * quantity;
+        
+        // Format total price to remove unnecessary decimals
+        String formattedPrice = String.format("%.0f", totalPrice);
+        model.addAttribute("price", formattedPrice);
+        model.addAttribute("product", product);
+        // if(sa!=null){
+        //     String emailUser= session.getAttribute("Emails").toString();
+        //     model.addAttribute("customer", sa);
+        //     model.addAttribute("Emails", emailUser);
+        //     return "payment";
+        // }
+        return "paymentmem";
     }
-    public String userNEWId(String ID){
+
+    public String userNEWId(String IDF,String ID){
         String words=ID.substring(0,1);
         String numberauto=ID.substring(1 );
         int giaTriMoi = Integer.parseInt(numberauto) + 1;
         // Định dạng lại phần số (giữ 4 chữ số)
         String phanSoMoi = String.format("%04d", giaTriMoi);
-        return words+phanSoMoi;
+        return IDF+phanSoMoi;
     }
 }
 

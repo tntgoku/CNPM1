@@ -106,13 +106,13 @@
                             
                             <div class="list-option" id="option-version" data-id="5">
                                 <div data-sku="MYWY3VN" class="item-option btn-active selected">
-                                    <a href="/dien-thoai/iphone-16-pro-max"><span>256GB</span></a>
+                                    <span>256GB</span>
                                 </div>
                                 <div data-sku="MYX03VN" class="item-option btn-active ">
-                                    <a href="/dien-thoai/iphone-16-pro-max-512gb"><span>512GB</span></a>
+                                  <span>512GB</span>
                                 </div>
                                 <div data-sku="MYX43VN" class="item-option btn-active ">
-                                    <a href="/dien-thoai/iphone-16-pro-max-1tb"><span>1TB</span></a>
+                                    <span>1TB</span>
                                 </div>
                             </div>
                         </div>
@@ -173,7 +173,7 @@
                         <div class="box-order product-action">
 
                             <div class="box-order-btn">
-                                <a title="Mua ngay" data-sku="MYWY3VN" href="" class="add-buy order-btn btnQuickOrder">
+                                <a title="Mua ngay" data-sku="MYWY3VN" th:href="@{thanhtoan(masanpham=${product.IDP},price=${product.Amount}* (${product.Damount}/100))}" class="add-buy order-btn btnQuickOrder">
                                     <strong>MUA NGAY</strong><span> (Giao tận nhà hoặc nhận tại cửa hàng)</span></a>
                                 <!-- <a title="Thêm vào giỏ hàng" data-sku="product" th:href="@{addToCart}" class="add-buy add-cart">
                                     <i class="icon-Cart1SolidOn"></i>

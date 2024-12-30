@@ -6,6 +6,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,16 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.example.engineering.Model.Account;
 import com.example.engineering.Model.Product;
+import com.example.engineering.Model.oder;
+import com.example.engineering.Reponsi.oderReponse;
 
 @SpringBootApplication
 public class EngineeringApplication implements CommandLineRunner {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+	@Autowired
+	oderReponse oderreponse;
 	public static void main(String[] args) {
 		SpringApplication.run(EngineeringApplication.class, args);
 	}
@@ -71,6 +76,11 @@ public class EngineeringApplication implements CommandLineRunner {
 				});
 				System.out.println("-------------------List Account-------------------\n--------------------------------------------------");
 				for (Account Product :Accounts) {
+					System.out.println(Product);
+				}
+				List<oder>listll=new ArrayList<>();
+				listll=oderreponse.getAlllistoder();
+				for (oder Product :listll) {
 					System.out.println(Product);
 				}
         } catch (Exception e) {

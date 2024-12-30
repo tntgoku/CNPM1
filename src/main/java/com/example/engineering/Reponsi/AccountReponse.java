@@ -46,6 +46,15 @@ public class AccountReponse {
             return null; // Return null if account is not found
         }
     }
+    public boolean checkIDA(String id){
+        String sql="SELECT COUNT(*) FROM Account WHERE IDA =?";
+        int count=0;
+        count=jdbcTemplate.queryForObject(sql, new Object[]{id},Integer.class);
+        if(count!=0){
+            return false;
+        }
+        return true;
+    }
 
     public void UpdateTimer(Account account){
         String sql="UPDATE Account SET Timer= ? WHERE IDA= ?";

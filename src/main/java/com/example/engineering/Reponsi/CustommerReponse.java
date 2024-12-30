@@ -27,7 +27,8 @@ public class CustommerReponse {
             rs.getString(2),
             rs.getString(3),
             rs.getInt(4),
-            rs.getString(5)
+            rs.getString(5),
+            rs.getString(6)
         );
     }
 }

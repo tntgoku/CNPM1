@@ -129,6 +129,25 @@ public class CartService {
         }
         return count;
     }
+
+    public void createCart(String iduser){
+        // jdbcTemplate.query(sql, null, null, null)
+    }
+    public int countCart(){
+        String sql ="SELECT COUNT(*) FROM CART";
+        int count = jdbcTemplate.queryForObject(sql, Integer.class);
+     
+        return count ;
+    }
+    private  boolean checkID(String id){
+        String sql="Select count(*) from CART where IDCart= ?";
+        int count = jdbcTemplate.queryForObject(sql, Integer.class);
+            if (count==0) {
+                return false;
+            }else{
+                return true;
+            }
+    }
 }
 
 

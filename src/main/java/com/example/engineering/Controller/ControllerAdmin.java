@@ -2,6 +2,7 @@ package com.example.engineering.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,12 +10,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.engineering.Model.Customer;
 import com.example.engineering.Model.Product;
 import com.example.engineering.Reponsi.ProductReponse;
+
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -103,5 +108,45 @@ public class ControllerAdmin {
             return "redirect:/addPro"; // Redirect back to the form if there's an error
         }
     }
+  
+    // @GetMapping("thanhtoan/")
+    // public String getMethodName(@RequestParam ("masanpham") String idpro,Model model) {
+        
+    //     Product product = productReponse.getProductById(idpro);
+        
+
+    //     if (product == null) {
+    //         return "error"; 
+    //     }
     
+    //     model.addAttribute("product", product);
+    //     return "paymentmem.";
+    // }
+    
+    // @GetMapping("camonbandamuahang")
+    // public String ThanksPage() {
+    //     return "thanksuser";
+    // }
+    @RequestMapping(value="/camonbandamuahang",method=RequestMethod.POST)
+    public String ThanksPage(@RequestParam("name") String name,
+                             @RequestParam("phone") String phone,
+                             @RequestParam("address") String address,
+                             @RequestParam("paymentMethod") String paymentMethod,
+                             @RequestParam(value = "note", required = false) String note,
+                             @RequestParam(value = "VAT", required = false) Boolean vat,
+                             RedirectAttributes redirectAttributes,Model model,HttpSession session) {
+
+        // Xử lý thông tin từ form
+        // Thí dụ: lưu thông tin vào database hoặc thực hiện các log
+        Customer a =(Customer) session.getAttribute("customer");
+        if(a==null){
+            String o="O0001";
+            String idp="C0001";
+            String  ida="A001";
+            String timer=LocalDateTime.now().toString();
+            
+        }
+         model.addAttribute("successMessage", "Cảm ơn bạn đã đặt hàng!")     ;               
+        return "thanksuser";  // Điều hướng đến trang cảm ơn
+    }
 }

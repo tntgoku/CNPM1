@@ -459,7 +459,12 @@ li{
     cursor: pointer;
     min-height: 44px;
 }
-
+.box-product-option .list-option .item-option:hover,.selected {
+    border: 1.5px solid #00957C;
+  }
+  .box-product-option .list-option .item-option  .selected{
+    border: 1.5px solid #00957C;
+  }
 .deltail-infor-right .box-product-option #option-version span {
     padding: 0 5px;
     margin: auto;
@@ -614,3 +619,5 @@ li{
     background: var(--red-red-1, #FD475A);
     color: white;
 }
+
+

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.engineering.Model.Account;
 import com.example.engineering.Model.CartItem;
+import com.example.engineering.Model.CartitemS;
 import com.example.engineering.Model.Product;
 
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +20,13 @@ public class CartService {
 
        @Autowired
     private JdbcTemplate jdbcTemplate;
-
+    List<CartItem> listcart=new ArrayList<>();
+    
+    @Autowired
+    ProductReponse productReponse;
+    public  List<CartItem> Getlistcart(){
+        return listcart;
+    }
     @Autowired
     public HttpSession sessions;
     public List<CartItem> addToCart(HttpSession session, String productId, int quantity, ProductReponse productReponse) {
@@ -56,8 +63,35 @@ public class CartService {
 
         return cart;
     }
+    
+    public void addToCart(CartItem cartItem){
+            if (listcart==null) {
+                listcart=new ArrayList<>();
+            }
+            boolean checkEqual=false;
+            if(!listcart.isEmpty()){
+                for (CartItem cartitem : listcart) {
+                    if (cartitem.getProductItem().getIDP().equals(cartItem.getProductItem().getIDP())) {
+                        checkEqual=true;
+                        cartitem.setQuantity(cartitem.getQuantity()+cartItem.getQuantity());
+                    }
+                }
+
+                if (checkEqual) {
+                    listcart.add(cartItem);
+                }
+            }
+
+            for (CartItem cartItem2 : listcart) {
+                System.out.println(cartItem2.toString());
+            }
+    }
+    
+  
+
+    
     public String findCartUser(String idUser){
-        String sql = "SELECT IDCart FROM CART WHERE IDuser = ?";
+        String sql = "SELECT IDCart FROM CART WHERE IDC= ?";
         try {
             // Query to retrieve the cart ID for the given user
             return jdbcTemplate.queryForObject(sql, new Object[]{idUser}, String.class);
@@ -86,6 +120,15 @@ public class CartService {
         }
     }
     
+    public int getAllQuantity(){
+        int count=0;
+        if(!listcart.isEmpty()){
+            for (CartItem cartItem : listcart) {
+                    count+=cartItem.getQuantity();                
+            }
+        }
+        return count;
+    }
 }
 
 

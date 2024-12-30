@@ -53,7 +53,7 @@ body{
 
 }
 .container .header-logo{
-    width: 220px;
+    width: 0px;
 }
 .headerr .header-main{
     display: flex;
@@ -95,7 +95,11 @@ header .search-i .btn{
 .user span{
     font-size: 18px;
 }
-
+.cart{
+    width: 50px;
+    justify-content: center;
+    display: flex;
+}
 
 .cart a{
     position: relative;
@@ -177,7 +181,12 @@ li{
     transition: var(--transition-1);
 }
 
-
+.user-a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
 .main{
     margin-top: 50px;

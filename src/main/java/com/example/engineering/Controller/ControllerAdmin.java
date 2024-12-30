@@ -37,12 +37,11 @@ public class ControllerAdmin {
         
         Product product = productReponse.getProductById(id);
         
-        // Kiểm tra sản phẩm có tồn tại hay không
+
         if (product == null) {
-            return "error"; // Trả về trang lỗi nếu không tìm thấy sản phẩm
+            return "error"; 
         }
     
-        // Thêm sản phẩm vào model để hiển thị trên trang details.html
         model.addAttribute("product", product);
         return "admin/mainProducts/Update";
     }

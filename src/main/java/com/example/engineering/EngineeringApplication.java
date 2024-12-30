@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import com.example.engineering.Model.Account;
 import com.example.engineering.Model.Product;
 
 @SpringBootApplication
@@ -29,6 +30,7 @@ public class EngineeringApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // Kiểm tra kết nối đến database
 			String sql = "SELECT * FROM PRODUCTs";
+			String sql1 = "SELECT * FROM Account";
 
 			try {
 				// Sử dụng JdbcTemplate để thực hiện truy vấn và map kết quả vào đối tượng
@@ -49,9 +51,26 @@ public class EngineeringApplication implements CommandLineRunner {
 						return Product;
 					}
 				});
-	
 				// In kết quả ra console
 				for (Product Product : Products) {
+					System.out.println(Product);
+				}
+				List<Account> Accounts=jdbcTemplate.query(sql1,new RowMapper<Account>() {
+					@Override
+					public Account mapRow(java.sql.ResultSet rs,int rowNum)throws java.sql.SQLException {
+					Account as=new Account(rs.getString(1),
+					rs.getString(2),
+					rs.getString(3),
+					rs.getString(4),
+					rs.getString(5),
+					rs.getInt(6),
+					rs.getString(7) );
+					
+						return as;
+				}
+				});
+				System.out.println("-------------------List Account-------------------\n--------------------------------------------------");
+				for (Account Product :Accounts) {
 					System.out.println(Product);
 				}
         } catch (Exception e) {

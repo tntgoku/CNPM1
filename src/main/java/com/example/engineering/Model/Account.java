@@ -7,15 +7,17 @@ public class Account {
     private String password;
     private String email;
     private int role;
+    private String Timer;
     public Account() {
     }
-    public Account(String iDA, String iDuser, String username, String password, String email, int role) {
+    public Account(String iDA, String iDuser, String username, String password, String email, int role,String time) {
         IDA = iDA;
         IDuser = iDuser;
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
+        Timer=time;
     }
     public String getIDA() {
         return IDA;
@@ -57,7 +59,13 @@ public class Account {
     @Override
     public String toString() {
         return "Account [IDA=" + IDA + ", IDuser=" + IDuser + ", username=" + username + ", password=" + password
-                + ", email=" + email + ", role=" + role + "]";
+                + ", email=" + email + ", role=" + role +", Timer: "+Timer+ "]";
+    }
+    public String getTimer() {
+        return Timer;
+    }
+    public void setTimer(String timer) {
+        Timer = timer;
     }
     
            

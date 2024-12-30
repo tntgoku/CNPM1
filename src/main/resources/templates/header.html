@@ -14,9 +14,9 @@
 
         <div class="header-action">
           <div class="cart">
-            <a href=""><i class="fa-solid fa-cart-shopping"></i>
+            <a th:href="@{cart}"><i class="fa-solid fa-cart-shopping"></i>
               <span class="count_item_pr hidden-count" th:text="(${TotalCartItem}!=null)? ${TotalCartItem} : 0">0</span>
-              <div class="top-cart-content">
+              <!-- <div class="top-cart-content">
 
                 <div class="CartHeaderContainer" style="width: 340px;">
                   <div class="cart--empty--message" style="text-align: center;">
@@ -24,13 +24,13 @@
                       <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
                   </div>  
                 </div>
-              </div>
+              </div> -->
             </a>
           
           
           </div>
           <div class="user">
-            <div th:if="${customer != null}">
+            <div th:if="${customer != null}" class="user-a">
                 <a th:href="@{/trangcanhan}">
                     <i class="fa-regular fa-user" style="font-size: 23px;"></i>
                     <span th:text="${customer.name}"></span>

@@ -2,6 +2,8 @@ package com.example.engineering.Reponsi;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +38,8 @@ public class AccountReponse {
                 rs.getString(3),
                 rs.getString(4),
                 rs.getString(5),
-                rs.getInt(6))
+                rs.getInt(6),
+                rs.getString(7))
             );
         } catch (Exception e) {
             System.err.println("Error fetching account: " + e.getMessage());
@@ -44,7 +47,16 @@ public class AccountReponse {
         }
     }
 
+    public void UpdateTimer(Account account){
+        String sql="UPDATE Account SET Timer= ? WHERE IDA= ?";
+        jdbcTemplate.update(sql, account.getTimer(),account.getIDA());
+        System.out.println("Update lan cuoi : \nNguoi dung :"+account.getIDA()+",\nDang xuat : "+account.getTimer());
+    }
 
+    public void insetAccount(String IDA,String IDC,String username,String pwd,String Email){
+        String sql="INSERT INTO account (IDA, IDuser, username, password, email, Role, Timer) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, IDA,IDC,username,pwd,Email,1,LocalDate.now()+"- "+LocalTime.now());
+    }
     public List<Account> getallAccounts(){
          String sql = "SELECT * FROM account";
 
@@ -59,6 +71,7 @@ public class AccountReponse {
                     account.setPassword(rs.getString("password"));
                     account.setEmail(rs.getString("email"));
                     account.setRole(rs.getInt("role"));
+                    account.setTimer(rs.getString("Timer"));
                     System.out.println("Lay thanh cong data");
                     return account;
                 }

@@ -108,4 +108,9 @@ public class ProductReponse  {
 		;
 	}
 
+
+	public void DeletePro(String IDP){
+		String sql= "DELETE FROM PRODUCTs WHERE IDP = ?";
+		jdbcTemplate.update(sql, IDP);
+	}
 }	

@@ -45,7 +45,7 @@
                 </a>
             </li>
             <li>
-                <a th:href="@{/customerr}">
+                <a th:href="@{/gotocustomer}">
                     <img th:src="@{/assets/img/icon/people.png}" alt="">
                     <span class="link_name">Khách hàng</span>
                 </a>
@@ -97,7 +97,7 @@
                 </div>
             </div>
             <div class="card-body " style="">
-            <form action="process_update.php" method="post" style="background :#e4e9f7;" enctype="multipart/form-data">
+            <form action="" method="post" style="background :#e4e9f7;" enctype="multipart/form-data">
                     <div class="form-group" style="margin-top: 10px;">
                         <label for="" >Mã sản phẩm</label>
                         <input type="text" name="id_product" th:value="${product.IDP}" readonly>

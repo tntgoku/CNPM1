@@ -45,13 +45,13 @@
                 </a>
             </li>
             <li>
-                <a th:href="@{/customerr}">
+                <a th:href="@{/gotocustomer}">
                     <img th:src="@{/assets/img/icon/people.png}" alt="">
                     <span class="link_name">Khách hàng</span>
                 </a>
             </li>
             <li>
-                <a href="News.php">
+                <a th:href="@{orderss}">
                     <img th:src="@{/assets/img/icon/dashboard.png}" alt="">
                     <span class="link_name">Quản lý bài viết(news)</span>
                 </a>
@@ -135,7 +135,7 @@
                         <td colspan="10" style="text-align: center; color: red;">Không tìm thấy sản phẩm</td>
                     </tr>
                                 <tr th:each= "product : ${productss}">
-                                    <td th:text= "${product.IDP}"></td>
+                                    <td th:text= "${product.IDP}" th:id="'product-' + ${product.IDP}"></td>
                                     <td><img th:src="@{${product.img}}" alt="123" width="60" style="object-fit: cover;"></td>
                                     <td th:text="${product.nameP}"></td>
                                     <td th:text="${product.IDCate}"></td>
@@ -144,7 +144,11 @@
                                     <td th:text="${product.Damount}+'%'">%</td>
                                     <td th:text="${product.Desp}" ></td>
                                     <td ><a th:href="@{UpdatePro(masanpham=${product.IDP})}"><button type="button" class="btn btn-success">Sửa</button></a></td>
-                                    <td><a th:href="@{DeletedPro(masanpham=${product.IDP})}"><button type="button" class="btn btn-danger" name="deleted">Xóa</button></a></td>
+                                    <td>
+                                        <!-- <a th:href="@{DeletedPro(masanpham=${product.IDP})}"></a> -->
+                                        <button type="button" class="btn btn-danger btn-deleted-u" name="deleted" th:data-id="${product.IDP}">Xóa</button>
+                                    <!-- </a> -->
+                                    </td>
                                 </tr>
                 </tbody>
             </table>
@@ -155,8 +159,7 @@
         </script>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-
 </script>
+    <script th:src="@{/js/scriptproduct.js}"></script>
 </body>
 </html>

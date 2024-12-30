@@ -94,11 +94,6 @@ public class ControllerSystemp {
     }
 
 
-    @GetMapping("customerr")
-    public String getCustomerPage() {
-        return "admin/customer";
-    }
-
     
     @ModelAttribute("customer")
     public Customer getLoggedInCustomer(HttpSession session) {

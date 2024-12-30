@@ -139,7 +139,7 @@
               </form>
             </div>
         </div>
-		<form action="customer.php" method="post">
+		<form  method="post">
 		<table class="table">
 			<thead style="text-align: center;">
 				<tr>
@@ -149,19 +149,17 @@
                     <td>Tên KH</td>
                     <td>SĐT</td>
                     <td>Địa chỉ</td>
-                    <td>Tên đăng nhập</td>
+                    <td>Tên đăng nập</td>
 				<td colspan="2" >Chức năng</td></tr>
 			</thead>
 			<tbody>
-			
-					<tr>
-						<td name="id"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><a ><button type="button" class="btn btn-success" name="update">Sua</button></a></td>
-                        <td><form action="customer.php" method="post" style="display:inline;">
+
+					<tr th:each= "product : ${productss}">
+						<td name="id" th:text="${product.ID}"></td>
+						<td th:text="${product.Name}" ></td>
+						<td th:text="${product.Phone}"></td>
+						<td th:text="${product.Address}"></td>
+						<td th:text="${product.ID}"><a ><button type="button" class="btn btn-success" name="update">Sua</button></a></td>
                         <input type="hidden" name="id_dele">
                         <input type="hidden" name="name1" >
                         <button type="submit" class="btn btn-danger" name="deleted">Xóa</button>
